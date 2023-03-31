@@ -19,7 +19,11 @@ model = RT1(
     depth = 6,
     heads = 8,
     dim_head = 64,
-    cond_drop_prob = 0.2
+    cond_drop_prob = 0.2,
+    conditioner_kwargs = {
+        'model_names':('/home/liuxm94/.cache/huggingface/hub/'
+                       'models--google--t5-v1_1-base/snapshots/checkpoint')
+    }
 )
 
 video = torch.randn(2, 3, 6, 224, 224)
@@ -29,10 +33,12 @@ instructions = [
     'please pass the butter'
 ]
 
-train_logits = model(video, instructions) # (2, 6, 11, 256) # (batch, frames, actions, bins)
+print("yes")
 
-# after much training
-
-model.eval()
-eval_logits = model(video, instructions, cond_scale = 3.) # classifier free guidance with conditional scale of 3
+# train_logits = model(video, instructions) # (2, 6, 11, 256) # (batch, frames, actions, bins)
+#
+# # after much training
+#
+# model.eval()
+# eval_logits = model(video, instructions, cond_scale = 3.) # classifier free guidance with conditional scale of 3
 
